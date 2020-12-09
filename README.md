@@ -25,3 +25,7 @@ Examen 9/12/2020
 4. El archivo de la imagen debe estar en un directorio aparte (uploads/).
 
 5. Para recuperar la imagen (mostrarla en el read_one), sacamos el string del campo image y buscamos el string devuelto en la ruta uploads/ , donde se supone estan los archivos subidos.
+
+
+
+Repositorio : https://github.com/carloshoyos98/examen_1aEvaluacionDWES
