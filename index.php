@@ -53,7 +53,7 @@
         $stmt = $con -> prepare($query);
         $stmt-> bindParam(":from_record_num", $from_record_num, PDO::PARAM_INT);
         $stmt-> bindParam(":records_per_page", $records_per_page, PDO::PARAM_INT);
-        
+
         $stmt -> execute();
 
         //como obtener el numero de lineas devueltas
@@ -110,6 +110,24 @@
 
             //final de la tabla
             echo "</table>";
+
+            // Paginacion
+
+            // cuenta el total de lineas
+            $query = "SELECT COUNT(*) as total_rows FROM products";
+            $stmt = $con->prepare($query);
+
+            // execute query
+            $stmt->execute();
+
+            // saca el total de lineas
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $total_rows = $row['total_rows'];
+
+            //datos paginados
+
+            $page_url = "index.php?";
+            include_once "paging.php";
 
         }
         //si no encuentra los datos
