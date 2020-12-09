@@ -30,12 +30,30 @@
         //conexion a la db
         include 'config/database.php';
 
+        // Varibales para paginacion
+
+        // pagina actual, si no hay nada, se setea con '1'
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        // set de numero de lineas 
+        $records_per_page = 5;
+
+        // calcullo para clausula LIMIT
+        $from_record_num = ($records_per_page * $page) - $records_per_page;
+
         //Mensaje de borrado irá aquí
 
         //Seleccionar todos los datos
+        // Con la clausula limit, ponemos un limite de lineas por pagina
 
-        $query = "SELECT id, name, description, price FROM products ORDER BY id DESC";
+        $query = "SELECT id, name, description, price FROM products ORDER BY id DESC
+                  LIMIT :from_record_num, :records_per_page";
+
+
         $stmt = $con -> prepare($query);
+        $stmt-> bindParam(":from_record_num", $from_record_num, PDO::PARAM_INT);
+        $stmt-> bindParam(":records_per_page", $records_per_page, PDO::PARAM_INT);
+        
         $stmt -> execute();
 
         //como obtener el numero de lineas devueltas
